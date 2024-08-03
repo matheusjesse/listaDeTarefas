@@ -18,10 +18,14 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import StyledScrollView, {
-  StyledButton,
+  StyledTouchableOpacity,
   StyledText,
   StyledTextInput,
+  RemoveTastButton,
+  AddTaskView,
+  AddTaskText,
 } from '../Styles/AppStyle';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 // type SectionProps = PropsWithChildren<{
 //   title: string;
@@ -65,6 +69,17 @@ function App(): React.JSX.Element {
     setTask('');
   };
 
+  const taskComplet = (id: number) => {
+    const itemSelected = toDo.findIndex(item => item.id === id);
+
+    toDo[itemSelected].checked = !toDo[itemSelected].checked;
+  };
+
+  const removeToDo = (id: number) => {
+    const newList = toDo.filter(item => item.id !== id);
+    setToDo(newList);
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -73,17 +88,29 @@ function App(): React.JSX.Element {
       />
       <StyledScrollView>
         <View>
-          <StyledTextInput
-            value={task}
-            onChangeText={newText => setTask(newText)}
-          />
-          <StyledButton title="Adicionar" onPress={addToDo} />
+          <AddTaskView>
+            <StyledTextInput
+              value={task}
+              onChangeText={newText => setTask(newText)}
+            />
+            <StyledTouchableOpacity onPress={addToDo}>
+              <AddTaskText>Adicionar</AddTaskText>
+            </StyledTouchableOpacity>
+          </AddTaskView>
           <StyledText>a</StyledText>
           {toDo.map(item => {
             const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
               <View key={item.id}>
+                <BouncyCheckbox
+                  value={item.checked}
+                  onValueChange={taskComplet}
+                />
                 <Text>{JSON.parse(text)}</Text>
+                <RemoveTastButton
+                  title="remover"
+                  onPress={() => removeToDo(item.id)}
+                />
               </View>
             );
           })}

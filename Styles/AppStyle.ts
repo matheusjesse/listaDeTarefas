@@ -7,11 +7,44 @@ const StyledText = styled.Text`
 `;
 
 const StyledTextInput = styled.TextInput`
-    border: 1px solid red;
-    background-color: pink;
+  background-color: white;
+  width: 200px;
+  height: 44px;
+  margin: 12px;
+  border-radius: 12px;
 `;
 
-const StyledButton = styled.Button``;
+const AddTaskView = styled.View`
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+`;
+const StyledTouchableOpacity = styled.TouchableOpacity`
+  height: 44px;
+  background-color: red;
+  width: 120px;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 12px 12px 0;
+  border-radius: 12px;
+  background-color: #1F6B5E;
+`;
 
+const AddTaskText = styled.Text`
+  font-size: 20;
+  color: white;
+`;
+
+const RemoveTastButton = styled.Button``;
 export default StyledScrollView;
-export {StyledText, StyledTextInput, StyledButton};
+export {
+  StyledText,
+  StyledTextInput,
+  StyledTouchableOpacity,
+  RemoveTastButton,
+  AddTaskText,
+  AddTaskView,
+};
