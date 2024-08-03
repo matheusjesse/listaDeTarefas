@@ -19,15 +19,16 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import StyledScrollView, {
   StyledTouchableOpacity,
-  StyledText,
   StyledTextInput,
-  RemoveTastButton,
+  RemoveTaskButton,
   AddTaskView,
   AddTaskText,
   LeftTaskView,
   TaskView,
   TaskText,
   StyledSafeAreaView,
+  RemoveTaskText,
+  TitleText,
 } from '../Styles/AppStyle';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -91,6 +92,7 @@ function App(): React.JSX.Element {
         backgroundColor={'#fffefa'}
       />
       <StyledScrollView>
+        <TitleText>Olá! Essa é sua Lista de Tarefas.</TitleText>
         <View>
           <AddTaskView>
             <StyledTextInput
@@ -101,7 +103,6 @@ function App(): React.JSX.Element {
               <AddTaskText>Adicionar</AddTaskText>
             </StyledTouchableOpacity>
           </AddTaskView>
-          <StyledText>a</StyledText>
           {toDo.map(item => {
             const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
@@ -113,10 +114,9 @@ function App(): React.JSX.Element {
                   />
                   <TaskText>{JSON.parse(text)}</TaskText>
                 </LeftTaskView>
-                <RemoveTastButton
-                  title="remover"
-                  onPress={() => removeToDo(item.id)}
-                />
+                <RemoveTaskButton onPress={() => removeToDo(item.id)}>
+                  <RemoveTaskText>Remover</RemoveTaskText>
+                </RemoveTaskButton>
               </TaskView>
             );
           })}

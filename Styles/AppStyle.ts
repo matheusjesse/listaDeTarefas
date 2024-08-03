@@ -5,11 +5,14 @@ const StyledSafeAreaView = styled.SafeAreaView`
   height: 100%;
 `;
 
-const StyledScrollView = styled.ScrollView``;
-
-const StyledText = styled.Text`
-  color: red;
+const TitleText = styled.Text`
+  text-align: center;
+  font-size: 24;
+  margin: 12px 0px 12px 0px;
+  color: #1f1c18;
 `;
+
+const StyledScrollView = styled.ScrollView``;
 
 const StyledTextInput = styled.TextInput`
   background-color: white;
@@ -18,6 +21,8 @@ const StyledTextInput = styled.TextInput`
   margin: 12px;
   border-radius: 12px;
   border: 1px solid #edede4;
+  padding-left: 17px;
+  font-size: 16px;
 `;
 
 const AddTaskView = styled.View`
@@ -57,24 +62,34 @@ const TaskView = styled.View`
   margin: 0px 0px 12px 0px;
 `;
 const TaskText = styled.Text`
-  color: #000;
+  color: #1f1c18;
   text-align: center;
   font-size: 18;
   font-weight: 400;
-  padding-top: 4px;
+  padding-top: 2px;
 `;
-const RemoveTastButton = styled.Button`
+
+const RemoveTaskButton = styled.TouchableOpacity``;
+const RemoveTaskText = styled.Text`
+  background-color: #ff8e26;
+  font-weight: 700;
+  font-size: 16;
+  border-radius: 8px;
+  color: #1f1c18;
+  padding: 4px;
 `;
+
 export default StyledScrollView;
 export {
-  StyledText,
   StyledTextInput,
   StyledTouchableOpacity,
-  RemoveTastButton,
+  RemoveTaskButton,
   AddTaskText,
   AddTaskView,
   TaskView,
   LeftTaskView,
   TaskText,
   StyledSafeAreaView,
+  RemoveTaskText,
+  TitleText,
 };
