@@ -85,7 +85,9 @@ const StyledErrorText = styled.Text`
   margin-top: -7px;
 `;
 
-const CompletedTaskText = styled.Text``;
+const CompletedTaskText = styled.Text`
+  text-align: center;
+`;
 
 export default StyledScrollView;
 export {
