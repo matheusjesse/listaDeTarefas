@@ -8,7 +8,7 @@ const StyledSafeAreaView = styled.SafeAreaView`
 
 const TitleText = styled.Text`
   text-align: center;
-  font-size: 24;
+  font-size: 24px;
   margin: 12px 0px 12px 0px;
   color: #1f1c18;
 `;
@@ -46,7 +46,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const AddTaskText = styled.Text`
-  font-size: 20;
+  font-size: 20px;
   color: white;
 `;
 
@@ -65,18 +65,17 @@ const TaskView = styled.View`
 const TaskText = styled.Text`
   color: #1f1c18;
   text-align: center;
-  font-size: 18;
+  font-size: 18px;
   font-weight: 400;
   padding-top: 2px;
 `;
 
 const RemoveTaskButton = styled.TouchableOpacity``;
 const RemoveTaskText = styled.Text`
-  background-color: #ff8e26;
   font-weight: 700;
-  font-size: 16;
+  font-size: 16px;
   border-radius: 8px;
-  color: #1f1c18;
+  color: #ff8e26;
   padding: 4px;
 `;
 
