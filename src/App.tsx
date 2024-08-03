@@ -29,6 +29,8 @@ import StyledScrollView, {
   StyledSafeAreaView,
   RemoveTaskText,
   TitleText,
+  StyledErrorText,
+  CompletedTaskText,
 } from '../Styles/AppStyle';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -42,6 +44,12 @@ type itemTypes = {
   id: number;
 };
 
+const ErrorText = () => {
+  return (
+    <StyledErrorText>A tarefa deve ter manos de 25 letras</StyledErrorText>
+  );
+};
+
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -51,10 +59,16 @@ function App(): React.JSX.Element {
 
   const [toDo, setToDo] = useState<itemTypes[]>([]);
   const [task, setTask] = useState<string>('');
-
+  const [textError, setTextError] = useState<boolean>(false);
+  const [totalTasks, setTotalTasks] = useState<number>(0);
+  const [taskCompleted, setTaskCompleted] = useState<number>(0);
   const addToDo = () => {
     if (task.length <= 1) {
       console.log('tarefa deve ter mais de uma letra');
+      return;
+    }
+    if (task.length > 25) {
+      setTextError(true);
       return;
     }
     let newId = 1;
@@ -68,21 +82,31 @@ function App(): React.JSX.Element {
       name: task,
       checked: false,
     };
-
+    setTotalTasks(totalTasks + 1);
     setToDo([...toDo, newToDo]);
-
+    setTextError(false);
     setTask('');
   };
 
   const taskComplet = (id: number) => {
-    const itemSelected = toDo.findIndex(item => item.id === id);
-
-    toDo[itemSelected].checked = !toDo[itemSelected].checked;
+    const updatedToDo = toDo.map(item =>
+      item.id === id
+        ? {...item, checked: !item.checked} // Toggle checked status
+        : item,
+    );
+    const finishedTasks = updatedToDo.filter(item => item.checked).length;
+    setToDo(updatedToDo);
+    setTaskCompleted(finishedTasks);
   };
 
   const removeToDo = (id: number) => {
     const newList = toDo.filter(item => item.id !== id);
+    const toDoRemoved = toDo.find(element => element.id === id);
     setToDo(newList);
+    setTotalTasks(totalTasks - 1);
+    if (toDoRemoved?.checked === true) {
+      setTaskCompleted(taskCompleted - 1);
+    }
   };
 
   return (
@@ -103,6 +127,7 @@ function App(): React.JSX.Element {
               <AddTaskText>Adicionar</AddTaskText>
             </StyledTouchableOpacity>
           </AddTaskView>
+          {textError && ErrorText()}
           {toDo.map(item => {
             const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
@@ -110,7 +135,7 @@ function App(): React.JSX.Element {
                 <LeftTaskView>
                   <BouncyCheckbox
                     value={item.checked}
-                    onValueChange={taskComplet}
+                    onPressIn={() => taskComplet(item.id)}
                   />
                   <TaskText>{JSON.parse(text)}</TaskText>
                 </LeftTaskView>
@@ -121,6 +146,7 @@ function App(): React.JSX.Element {
             );
           })}
         </View>
+        <CompletedTaskText>{`${taskCompleted} / ${totalTasks}`}</CompletedTaskText>
       </StyledScrollView>
     </StyledSafeAreaView>
   );

@@ -1,3 +1,4 @@
+import { startTransition } from 'react';
 import styled from 'styled-components/native';
 
 const StyledSafeAreaView = styled.SafeAreaView`
@@ -41,7 +42,7 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
   justify-content: center;
   margin: 12px 12px 12px 0;
   border-radius: 12px;
-  background-color: #1F6B5E;
+  background-color: #1f6b5e;
 `;
 
 const AddTaskText = styled.Text`
@@ -79,6 +80,13 @@ const RemoveTaskText = styled.Text`
   padding: 4px;
 `;
 
+const StyledErrorText = styled.Text`
+  text-align: center;
+  margin-top: -7px;
+`;
+
+const CompletedTaskText = styled.Text``;
+
 export default StyledScrollView;
 export {
   StyledTextInput,
@@ -92,4 +100,6 @@ export {
   StyledSafeAreaView,
   RemoveTaskText,
   TitleText,
+  StyledErrorText,
+  CompletedTaskText,
 };
