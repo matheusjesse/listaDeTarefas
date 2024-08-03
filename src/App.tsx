@@ -24,6 +24,10 @@ import StyledScrollView, {
   RemoveTastButton,
   AddTaskView,
   AddTaskText,
+  LeftTaskView,
+  TaskView,
+  TaskText,
+  StyledSafeAreaView,
 } from '../Styles/AppStyle';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -81,10 +85,10 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <StyledSafeAreaView>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={'#fffefa'}
       />
       <StyledScrollView>
         <View>
@@ -101,22 +105,24 @@ function App(): React.JSX.Element {
           {toDo.map(item => {
             const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
-              <View key={item.id}>
-                <BouncyCheckbox
-                  value={item.checked}
-                  onValueChange={taskComplet}
-                />
-                <Text>{JSON.parse(text)}</Text>
+              <TaskView key={item.id}>
+                <LeftTaskView>
+                  <BouncyCheckbox
+                    value={item.checked}
+                    onValueChange={taskComplet}
+                  />
+                  <TaskText>{JSON.parse(text)}</TaskText>
+                </LeftTaskView>
                 <RemoveTastButton
                   title="remover"
                   onPress={() => removeToDo(item.id)}
                 />
-              </View>
+              </TaskView>
             );
           })}
         </View>
       </StyledScrollView>
-    </SafeAreaView>
+    </StyledSafeAreaView>
   );
 }
 
