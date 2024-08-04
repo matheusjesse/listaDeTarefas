@@ -8,9 +8,11 @@ const StyledSafeAreaView = styled.SafeAreaView`
 
 const TitleText = styled.Text`
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
   margin: 12px 0px 12px 0px;
   color: #1f1c18;
+  height: 50px;  
+  padding-top: 12px;
 `;
 
 const StyledScrollView = styled.ScrollView``;
