@@ -5,31 +5,23 @@
  * @format
  */
 
-import React, {useState} from 'react';
-import {StatusBar, Text, useColorScheme, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StatusBar, useColorScheme, View} from 'react-native';
 import StyledScrollView, {
   StyledTouchableOpacity,
   StyledTextInput,
-  RemoveTaskButton,
   AddTaskView,
   AddTaskText,
-  LeftTaskView,
-  TaskView,
-  TaskText,
   StyledSafeAreaView,
-  RemoveTaskText,
   TitleText,
   StyledErrorText,
   CompletedTaskText,
   StyledTextLength,
 } from '../Styles/AppStyle';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import TaskItem from './componentes/TaskItem';
 
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
 
-type itemTypes = {
+type ItemTypes = {
   name: string;
   checked: boolean;
   id: number;
@@ -37,41 +29,35 @@ type itemTypes = {
 
 const ErrorText = () => {
   return (
-    <StyledErrorText>A tarefa deve ter menos que 120 letras</StyledErrorText>
+    <StyledErrorText>A tarefa deve ter no máximo 120 letras</StyledErrorText>
   );
 };
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const [toDo, setToDo] = useState<itemTypes[]>([]);
+  const [toDo, setToDo] = useState<ItemTypes[]>([]);
   const [task, setTask] = useState<string>('');
   const [textError, setTextError] = useState<boolean>(false);
   const [totalTasks, setTotalTasks] = useState<number>(0);
   const [taskCompleted, setTaskCompleted] = useState<number>(0);
+
   const addToDo = () => {
     if (task.length <= 1) {
       console.log('tarefa deve ter mais de uma letra');
       return;
-    }
-    if (task.length > 120) {
-      setTextError(true);
-      return;
-    }
-    let newId = 1;
+    }    
+    
+    const newId = toDo.length > 0 ? toDo[toDo.length - 1].id + 1 : 1;
 
-    if (toDo.length > 0) {
-      newId = toDo[toDo.length - 1].id + 1;
-    }
-
-    const newToDo: itemTypes = {
+    const newToDo: ItemTypes = {
       id: newId,
       name: task,
       checked: false,
     };
+
     setTotalTasks(totalTasks + 1);
     setToDo([...toDo, newToDo]);
-    setTextError(false);
     setTask('');
   };
 
@@ -94,6 +80,12 @@ function App(): React.JSX.Element {
     }
   };
 
+  const onChangeText = (text: string) => {
+    setTask(text);
+    setTextError(text.length > 120);
+  }
+
+
   return (
     <StyledSafeAreaView>
       <StatusBar
@@ -106,31 +98,25 @@ function App(): React.JSX.Element {
           <AddTaskView>
             <StyledTextInput
               value={task}
-              onChangeText={newText => setTask(newText)}
+              onChangeText={onChangeText}
             />
             <StyledTouchableOpacity onPress={addToDo}>
               <AddTaskText>Adicionar</AddTaskText>
             </StyledTouchableOpacity>
           </AddTaskView>
-          {task.length > 120 ? ErrorText() :
+          {textError ? ErrorText() :
             <StyledTextLength>{task.length} / 120</StyledTextLength>
-
           }
           {toDo.map(item => {
-            const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
-              <TaskView key={item.id}>
-                <LeftTaskView>
-                  <BouncyCheckbox
-                    value={item.checked}
-                    onPressIn={() => taskComplet(item.id)}
-                  />
-                  <TaskText>{JSON.parse(text)}</TaskText>
-                </LeftTaskView>
-                <RemoveTaskButton onPress={() => removeToDo(item.id)}>
-                  <RemoveTaskText>Remover</RemoveTaskText>
-                </RemoveTaskButton>
-              </TaskView>
+              <TaskItem
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              checked={item.checked}
+              onToggle={taskComplet}
+              onRemove={removeToDo}
+            />
             );
           })}
         </View>
