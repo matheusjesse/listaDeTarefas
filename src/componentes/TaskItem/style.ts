@@ -24,7 +24,10 @@ const TaskText = styled.Text`
   width: 90%;
 `;
 
-const RemoveTaskButton = styled.TouchableOpacity``;
+const RemoveTaskButton = styled.TouchableOpacity`
+  width: 74px;
+  margin-left: 80%;
+`;
 const RemoveTaskText = styled.Text`
   font-weight: 700;
   font-size: 16px;
