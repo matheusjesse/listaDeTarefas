@@ -86,6 +86,7 @@ const StyledErrorText = styled.Text`
 
 const CompletedTaskText = styled.Text`
   text-align: center;
+  font-size: 22px;
 `;
 
 export default StyledScrollView;
