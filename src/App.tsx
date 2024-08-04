@@ -14,11 +14,11 @@ import StyledScrollView, {
   AddTaskText,
   StyledSafeAreaView,
   TitleText,
-  StyledErrorText,
   CompletedTaskText,
   StyledTextLength,
 } from '../Styles/AppStyle';
 import TaskItem from './componentes/TaskItem';
+import ErrorText from './componentes/ErrorTExt';
 
 type ItemTypes = {
   name: string;
@@ -26,11 +26,6 @@ type ItemTypes = {
   id: number;
 };
 
-const ErrorText = () => {
-  return (
-    <StyledErrorText>A tarefa deve ter no máximo 120 letras</StyledErrorText>
-  );
-};
 
 function App(): React.JSX.Element {
 
