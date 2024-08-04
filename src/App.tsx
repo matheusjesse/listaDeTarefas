@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {StatusBar, useColorScheme, View} from 'react-native';
 import StyledScrollView, {
   StyledTouchableOpacity,
