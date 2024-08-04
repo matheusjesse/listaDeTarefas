@@ -6,17 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {StatusBar, useColorScheme, View} from 'react-native';
 import StyledScrollView, {
   StyledTouchableOpacity,
   StyledTextInput,
@@ -53,10 +43,6 @@ const ErrorText = () => {
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   const [toDo, setToDo] = useState<itemTypes[]>([]);
   const [task, setTask] = useState<string>('');
   const [textError, setTextError] = useState<boolean>(false);
@@ -90,9 +76,7 @@ function App(): React.JSX.Element {
 
   const taskComplet = (id: number) => {
     const updatedToDo = toDo.map(item =>
-      item.id === id
-        ? {...item, checked: !item.checked} // Toggle checked status
-        : item,
+      item.id === id ? {...item, checked: !item.checked} : item,
     );
     const finishedTasks = updatedToDo.filter(item => item.checked).length;
     setToDo(updatedToDo);
