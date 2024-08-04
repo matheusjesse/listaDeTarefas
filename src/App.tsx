@@ -6,7 +6,7 @@
  */
 
 import React, {useState} from 'react';
-import {StatusBar, useColorScheme, View} from 'react-native';
+import {StatusBar, Text, useColorScheme, View} from 'react-native';
 import StyledScrollView, {
   StyledTouchableOpacity,
   StyledTextInput,
@@ -21,6 +21,7 @@ import StyledScrollView, {
   TitleText,
   StyledErrorText,
   CompletedTaskText,
+  StyledTextLength,
 } from '../Styles/AppStyle';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -36,7 +37,7 @@ type itemTypes = {
 
 const ErrorText = () => {
   return (
-    <StyledErrorText>A tarefa deve ter manos de 25 letras</StyledErrorText>
+    <StyledErrorText>A tarefa deve ter menos que 120 letras</StyledErrorText>
   );
 };
 
@@ -53,7 +54,7 @@ function App(): React.JSX.Element {
       console.log('tarefa deve ter mais de uma letra');
       return;
     }
-    if (task.length > 25) {
+    if (task.length > 120) {
       setTextError(true);
       return;
     }
@@ -111,7 +112,10 @@ function App(): React.JSX.Element {
               <AddTaskText>Adicionar</AddTaskText>
             </StyledTouchableOpacity>
           </AddTaskView>
-          {textError && ErrorText()}
+          {task.length > 120 ? ErrorText() :
+            <StyledTextLength>{task.length} / 120</StyledTextLength>
+
+          }
           {toDo.map(item => {
             const text = JSON.stringify(item.name); // Correctly declare and compute outside JSX
             return (
@@ -130,7 +134,9 @@ function App(): React.JSX.Element {
             );
           })}
         </View>
-        <CompletedTaskText>{`${taskCompleted} / ${totalTasks}`}</CompletedTaskText>
+        {
+          toDo.length > 0 && <CompletedTaskText>{`${taskCompleted} / ${totalTasks}`}</CompletedTaskText>
+        }
       </StyledScrollView>
     </StyledSafeAreaView>
   );
