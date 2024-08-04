@@ -15,6 +15,7 @@ const TaskView = styled.View`
   border-bottom-width: 0.2px;
   border-bottom-color: #d6d6c5;
 `;
+
 const TaskText = styled.Text`
   color: #1f1c18;
   text-align: start;
@@ -28,6 +29,7 @@ const RemoveTaskButton = styled.TouchableOpacity`
   width: 74px;
   margin-left: 80%;
 `;
+
 const RemoveTaskText = styled.Text`
   font-weight: 700;
   font-size: 16px;

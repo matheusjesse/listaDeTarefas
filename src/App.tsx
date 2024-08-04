@@ -20,7 +20,6 @@ import StyledScrollView, {
 } from '../Styles/AppStyle';
 import TaskItem from './componentes/TaskItem';
 
-
 type ItemTypes = {
   name: string;
   checked: boolean;
@@ -34,8 +33,8 @@ const ErrorText = () => {
 };
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
 
+  const isDarkMode = useColorScheme() === 'dark';
   const [toDo, setToDo] = useState<ItemTypes[]>([]);
   const [task, setTask] = useState<string>('');
   const [textError, setTextError] = useState<boolean>(false);
@@ -46,7 +45,7 @@ function App(): React.JSX.Element {
     if (task.length <= 1) {
       console.log('tarefa deve ter mais de uma letra');
       return;
-    }    
+    };
     
     const newId = toDo.length > 0 ? toDo[toDo.length - 1].id + 1 : 1;
 
@@ -83,8 +82,7 @@ function App(): React.JSX.Element {
   const onChangeText = (text: string) => {
     setTask(text);
     setTextError(text.length > 120);
-  }
-
+  };
 
   return (
     <StyledSafeAreaView>
