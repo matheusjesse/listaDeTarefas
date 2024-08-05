@@ -41,18 +41,20 @@ function App(): React.JSX.Element {
       setTextError(error);
       return;
     }
-    
-    const newId = toDo.length > 0 ? toDo[toDo.length - 1].id + 1 : 1;
 
-    const newToDo: ItemTypes = {
-      id: newId,
-      name: task,
-      checked: false,
-    };
+    setToDo(prevToDo => {
+      const newId = prevToDo.length > 0 ? prevToDo[prevToDo.length - 1].id + 1 : 1;
 
-    setTotalTasks(totalTasks + 1);
-    setToDo([...toDo, newToDo]);
-    setTask('');
+      const newToDo: ItemTypes = {
+        id: newId,
+        name: task,
+        checked: false,
+      };
+
+      setTotalTasks(prevTotal => prevTotal + 1);
+      setTask('');
+      return [...prevToDo, newToDo];
+    });
   };
 
   const handleTaskComplete = (id: number) => {
