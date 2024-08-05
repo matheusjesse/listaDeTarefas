@@ -19,6 +19,7 @@ import StyledScrollView, {
 } from '../Styles/AppStyle';
 import TaskItem from './componentes/TaskItem';
 import ErrorText from './componentes/ErrorText';
+import { validateTask } from './utils/taskUtils';
 
 type ItemTypes = {
   name: string;
@@ -35,12 +36,9 @@ function App(): React.JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<number>(0);
 
   const handleAddTask = () => {
-    if (task.length <= 1) {
-      setTextError('A tarefa deve ter mais de uma letra.');
-      return;
-    }
-    if (task.length > 120) {
-      setTextError('A tarefa deve ter no máximo 120 letras.');
+    const error = validateTask(task);
+    if (error) {
+      setTextError(error);
       return;
     }
     
