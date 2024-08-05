@@ -15,7 +15,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ id, name, checked, onToggle, onRemo
     <TaskView key={id}>
       <LeftTaskView>
         <BouncyCheckbox
-          value={checked}
+          isChecked={checked}
           onPressIn={() => onToggle(id)}
         />
         <TaskText>{name}</TaskText>

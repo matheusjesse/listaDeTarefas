@@ -52,12 +52,6 @@ const AddTaskText = styled.Text`
   color: white;
 `;
 
-
-const StyledErrorText = styled.Text`
-  text-align: center;
-  margin-top: -7px;
-`;
-
 const StyledTextLength = styled.Text `
 text-align: center;
 margin-top: -7px;
@@ -76,7 +70,6 @@ export {
   AddTaskView,
   StyledSafeAreaView,
   TitleText,
-  StyledErrorText,
   CompletedTaskText,
   StyledTextLength,
 };

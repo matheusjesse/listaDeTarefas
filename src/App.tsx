@@ -18,7 +18,7 @@ import StyledScrollView, {
   StyledTextLength,
 } from '../Styles/AppStyle';
 import TaskItem from './componentes/TaskItem';
-import ErrorText from './componentes/ErrorTExt';
+import ErrorText from './componentes/ErrorText';
 
 type ItemTypes = {
   name: string;
@@ -26,21 +26,23 @@ type ItemTypes = {
   id: number;
 };
 
-
 function App(): React.JSX.Element {
-
   const isDarkMode = useColorScheme() === 'dark';
   const [toDo, setToDo] = useState<ItemTypes[]>([]);
   const [task, setTask] = useState<string>('');
-  const [textError, setTextError] = useState<boolean>(false);
+  const [textError, setTextError] = useState<string | null>(null);
   const [totalTasks, setTotalTasks] = useState<number>(0);
   const [taskCompleted, setTaskCompleted] = useState<number>(0);
 
-  const addToDo = () => {
+  const handleAddTask = () => {
     if (task.length <= 1) {
-      console.log('tarefa deve ter mais de uma letra');
+      setTextError('A tarefa deve ter mais de uma letra.');
       return;
-    };
+    }
+    if (task.length > 120) {
+      setTextError('A tarefa deve ter no máximo 120 letras.');
+      return;
+    }
     
     const newId = toDo.length > 0 ? toDo[toDo.length - 1].id + 1 : 1;
 
@@ -55,7 +57,7 @@ function App(): React.JSX.Element {
     setTask('');
   };
 
-  const taskComplet = (id: number) => {
+  const handleTaskComplete = (id: number) => {
     const updatedToDo = toDo.map(item =>
       item.id === id ? {...item, checked: !item.checked} : item,
     );
@@ -64,7 +66,7 @@ function App(): React.JSX.Element {
     setTaskCompleted(finishedTasks);
   };
 
-  const removeToDo = (id: number) => {
+  const handleRemoveTask = (id: number) => {
     const newList = toDo.filter(item => item.id !== id);
     const toDoRemoved = toDo.find(element => element.id === id);
     setToDo(newList);
@@ -74,9 +76,9 @@ function App(): React.JSX.Element {
     }
   };
 
-  const onChangeText = (text: string) => {
+  const handleChangeText = (text: string) => {
     setTask(text);
-    setTextError(text.length > 120);
+    setTextError(text.length > 120 ? 'A tarefa deve ter no máximo 120 letras.' : null);
   };
 
   return (
@@ -91,13 +93,13 @@ function App(): React.JSX.Element {
           <AddTaskView>
             <StyledTextInput
               value={task}
-              onChangeText={onChangeText}
+              onChangeText={handleChangeText}
             />
-            <StyledTouchableOpacity onPress={addToDo}>
+            <StyledTouchableOpacity onPress={handleAddTask}>
               <AddTaskText>Adicionar</AddTaskText>
             </StyledTouchableOpacity>
           </AddTaskView>
-          {textError ? ErrorText() :
+          {textError ? <ErrorText message={textError}/> :
             <StyledTextLength>{task.length} / 120</StyledTextLength>
           }
           {toDo.map(item => {
@@ -107,8 +109,8 @@ function App(): React.JSX.Element {
               id={item.id}
               name={item.name}
               checked={item.checked}
-              onToggle={taskComplet}
-              onRemove={removeToDo}
+              onToggle={handleTaskComplete}
+              onRemove={handleRemoveTask}
             />
             );
           })}
