@@ -91,6 +91,7 @@ function App(): React.JSX.Element {
           <AddTaskView>
             <StyledTextInput
               value={task}
+              placeholder='Digite sua tarefa...'
               onChangeText={handleChangeText}
             />
             <StyledTouchableOpacity onPress={handleAddTask}>
