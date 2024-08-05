@@ -17,7 +17,7 @@ cd listaDeTarefas
 ```
 
 #### 3° passo
-Instalando as dependências do aplicativo. (devido uma incompatibilidade que encontrei com styled-componets, para o projeto instalar as dependências necessárias  precisa adicionar a linha de Código --legacy-peer-deps)
+Instalando as dependências do aplicativo. (devido uma incompatibilidade que encontrei com styled-componets ou a versão do node instalada na minha maquina, para o projeto instalar as dependências necessárias  precisa adicionar a linha de Código --legacy-peer-deps)
 ```
 npm install --legacy-peer-deps
 ```
