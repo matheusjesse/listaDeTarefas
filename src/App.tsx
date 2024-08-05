@@ -58,12 +58,14 @@ function App(): React.JSX.Element {
   };
 
   const handleTaskComplete = (id: number) => {
-    const updatedToDo = toDo.map(item =>
-      item.id === id ? {...item, checked: !item.checked} : item,
-    );
-    const finishedTasks = updatedToDo.filter(item => item.checked).length;
-    setToDo(updatedToDo);
-    setTaskCompleted(finishedTasks);
+    setToDo(prevToDo => {
+      const updatedToDo = prevToDo.map(item =>
+        item.id === id ? { ...item, checked: !item.checked } : item,
+      );
+      const finishedTasks = updatedToDo.filter(item => item.checked).length;
+      setTaskCompleted(finishedTasks);
+      return updatedToDo;
+    });
   };
 
   const handleRemoveTask = (id: number) => {
